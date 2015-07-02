@@ -6,6 +6,11 @@ PG_CONFDIR="/etc/postgresql/${PG_VERSION}/main"
 PG_BINDIR="/usr/lib/postgresql/${PG_VERSION}/bin"
 PG_DATADIR="${PG_HOME}/${PG_VERSION}/main"
 
+locale-gen pt_BR
+locale-gen pt_BR.UTF-8
+dpkg-reconfigure locales
+update-locale LANG=pt_BR.UTF-8
+
 if [ -n "${USERMAP_UID}" ] || [ -n "${USERMAP_GID}" ]; then
   if [ -n "${USERMAP_UID}" ] && [ -n "${USERMAP_GID}" ]; then
     groupmod -g ${USERMAP_GID} postgres
@@ -69,9 +74,9 @@ if [ ! -d ${PG_DATADIR} ]; then
 
   echo "Initializing database..."
   sudo -u postgres -H "${PG_BINDIR}/initdb" --pgdata="${PG_DATADIR}" \
-    --username=postgres --encoding=unicode --auth=trust >/dev/null 
-    #--locale=pt_BR \ 
-    #--lc-messages=pt_BR --lc-monetary=pt_BR --lc-numeric=pt_BR --lc-time=pt_BR
+    --username=postgres --encoding=unicode --auth=trust \
+    --locale=pt_BR.UTF-8 --lc-messages=pt_BR --lc-monetary=pt_BR --lc-numeric=pt_BR --lc-time=pt_BR > /dev/null
+
 fi
 
 if [ -n "${PG_OLD_VERSION}" ]; then
