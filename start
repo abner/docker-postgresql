@@ -69,8 +69,9 @@ if [ ! -d ${PG_DATADIR} ]; then
 
   echo "Initializing database..."
   sudo -u postgres -H "${PG_BINDIR}/initdb" --pgdata="${PG_DATADIR}" \
-    --username=postgres --encoding=unicode --auth=trust >/dev/null --locale=pt_BR \
-    --lc-messages=pt_BR --lc-monetary=pt_BR --lc-numeric=pt_BR --lc-time=pt_BR
+    --username=postgres --encoding=unicode --auth=trust >/dev/null 
+    #--locale=pt_BR \ 
+    #--lc-messages=pt_BR --lc-monetary=pt_BR --lc-numeric=pt_BR --lc-time=pt_BR
 fi
 
 if [ -n "${PG_OLD_VERSION}" ]; then
